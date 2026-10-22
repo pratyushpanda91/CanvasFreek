@@ -482,34 +482,7 @@ async function createResultBlob(){
  glow.addColorStop(1,"rgba(20,35,41,0)");
  ctx.fillStyle=glow;ctx.fillRect(0,0,1080,1350);
 
- /* Use the actual creator photographs as a subtle background layer. */
- const photoMap={
-  "The Beautiful Glitch":"209030.jpg",
-  "The Quiet Dreamer":"211776.jpg",
-  "The Unwritten Chapter":"200713.jpg",
-  "The Faraway Soul":"209030.jpg",
-  "The Horizon Collector":"200713.jpg",
-  "The Color in the Static":"205019.jpg",
-  "The Keeper of Moonlight":"211776.jpg",
-  "The Almost Sunrise":"211776.jpg",
-  "The Little Universe":"205019.jpg",
-  "The Story Between Stars":"209030.jpg"
- };
- try{
-  const photo=new Image();
-  photo.src=photoMap[$("resultTitle").textContent]||"209030.jpg";
-  await new Promise((resolve,reject)=>{photo.onload=resolve;photo.onerror=reject;});
-  ctx.save();ctx.globalAlpha=.16;
-  const crop=Math.max(1080/photo.width,1300/photo.height);
-  const pw=photo.width*crop,ph=photo.height*crop;
-  ctx.drawImage(photo,(1080-pw)/2,(100-ph)/2,pw,ph);
-  ctx.restore();
-  const tint=ctx.createLinearGradient(0,0,0,1400);
-  tint.addColorStop(0,"rgba(13,25,30,.28)");
-  tint.addColorStop(.65,"rgba(13,25,30,.55)");
-  tint.addColorStop(1,"rgba(13,25,30,.94)");
-  ctx.fillStyle=tint;ctx.fillRect(0,0,1080,1400);
- }catch(e){/* Gradient artwork remains available if photos fail to load. */}
+ /* Image-free result-card background: the artwork and typography stay clean. */
 
  let seed=29;
  function rand(){seed=(seed*9301+49297)%233280;return seed/233280;}
