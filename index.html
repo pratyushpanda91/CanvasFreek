@@ -1,126 +1,171 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111026">
-<title>The Dream Inside You — Canvasfreek</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#142329">
+<title>The Dream Inside You | Canvasfreek</title>
+
 <style>
-:root{
- --bg:#10151a; --panel:rgba(25,34,42,.82); --line:rgba(231,224,205,.2);
- --text:#f8f3eb; --muted:#c2c5c2; --accent:#e6c9a2; --accent2:#9fc4d0;
- --glow:rgba(206,167,119,.22); --serif:Georgia,"Times New Roman",serif;
+:root {
+  --bg:#10191d;
+  --panel:#1b2a30;
+  --text:#f8f3eb;
+  --muted:#c2c5c2;
+  --accent:#e6c9a2;
+  --line:rgba(231,224,205,.2);
 }
 *{box-sizing:border-box}
-html{min-height:100%;background:var(--bg)}
-body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
- radial-gradient(ellipse at 15% 5%,rgba(183,137,91,.20),transparent 42%),
- radial-gradient(ellipse at 90% 45%,rgba(89,139,159,.18),transparent 38%),
- linear-gradient(160deg,#0b1014,#18232a 55%,#101519);overflow-x:hidden}
-body:before,body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0}
-body:before{opacity:.38;background-image:radial-gradient(1px 1px at 10% 20%,#fff 98%,transparent),radial-gradient(1px 1px at 80% 12%,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 50% 72%,#fff 98%,transparent),radial-gradient(1px 1px at 28% 85%,#fff 98%,transparent),radial-gradient(1px 1px at 92% 77%,#fff 98%,transparent);background-size:190px 190px,230px 230px,300px 300px,260px 260px,210px 210px}
-body:after{background:radial-gradient(ellipse at center,transparent 20%,rgba(4,4,15,.42) 100%)}
-button,a{font:inherit}
+body{
+  margin:0;color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 5%,#65513a45,transparent 42%),
+    radial-gradient(ellipse at 90% 45%,#598b9f25,transparent 38%),
+    linear-gradient(160deg,#0b1014,#18232a 55%,#101519);
+  min-height:100vh;
+}
+button,input,textarea{font:inherit}
 button{cursor:pointer}
-.app{position:relative;z-index:1;width:min(100% - 32px,760px);margin:0 auto;padding:22px 0 38px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:44px}
-.brand{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.19em;text-transform:uppercase;color:#eee5ff}
-.brandmark{width:32px;height:32px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--accent);box-shadow:0 0 22px var(--glow)}
-.brandmark svg{width:18px;height:18px}.instagram-mark{display:inline-flex;align-items:center;color:#e6c9a2;margin-left:-4px}.instagram-mark svg{width:17px;height:17px}
-.pill{border:1px solid var(--line);border-radius:99px;padding:7px 11px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.view{display:none;animation:rise .65s cubic-bezier(.2,.7,.2,1) both}
+.app{width:min(100% - 28px,850px);margin:auto;padding:22px 0 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:32px}
+.brand{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:3px;text-transform:uppercase}
+.brandmark{font-size:25px;color:var(--accent)}
+.ig{width:19px;height:19px;color:var(--accent)}
+.pill{border:1px solid var(--line);border-radius:30px;padding:7px 12px;font-size:10px;letter-spacing:1px;color:var(--muted)}
+.view{display:none;animation:rise .45s ease both}
 .view.active{display:block}
-.hero{text-align:center;padding:16px 0 22px}
-.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.28em;color:var(--accent);margin-bottom:19px}
-h1,h2,p{margin-top:0}
-h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,9vw,78px);line-height:.98;letter-spacing:-.045em;margin-bottom:22px}
-h1 span{display:block;color:#e9cda7;font-style:italic}
-.lead{max-width:470px;margin:0 auto 28px;color:var(--muted);line-height:1.8;font-size:15px}
-.primary,.secondary{border-radius:999px;padding:14px 22px;border:1px solid transparent;transition:transform .2s,background .2s;min-height:48px}
-.primary{color:#161027;background:linear-gradient(115deg,#f1dfc4,#b5d5d8);box-shadow:0 8px 32px rgba(161,124,255,.22);font-weight:650}
-.secondary{background:rgba(255,255,255,.035);color:var(--text);border-color:var(--line)}
-.primary:hover,.secondary:hover,.answer:hover{transform:translateY(-2px)}
-.primary:focus-visible,.secondary:focus-visible,.answer:focus-visible{outline:2px solid #fff;outline-offset:3px}
-.orbit{width:min(68vw,270px);aspect-ratio:1;margin:4px auto 30px;position:relative;display:grid;place-items:center}
-.orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(208,188,255,.22);inset:7%;transform:rotate(-23deg) scaleY(.42);box-shadow:0 0 32px var(--glow)}
-.orbit:after{inset:0;transform:rotate(36deg) scaleY(.55);border-color:rgba(153,164,255,.24)}
-.moon{width:49%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 27%,#fff4d8 0,#e7c89d 10%,#8a9b9c 36%,#34464c 66%,#18242a 75%);box-shadow:inset -15px -13px 30px rgba(0,0,0,.45),0 0 55px rgba(164,132,255,.28);position:relative}
-.moon:after{content:"";position:absolute;width:15%;height:15%;border-radius:50%;background:#f2dcff;top:17%;right:20%;box-shadow:0 0 18px #e9c9ff}
-.spark{position:absolute;color:#e5d3ff;font-size:22px;animation:twinkle 3s ease-in-out infinite}
-.spark.s1{top:13%;left:15%}.spark.s2{right:10%;top:40%;animation-delay:1s}.spark.s3{bottom:11%;left:24%;animation-delay:1.7s}
-.photo-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:620px;margin:0 auto 28px}
-.photo-card{position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(231,224,205,.2);margin:0;aspect-ratio:3/4;background:#17272e}
-.photo-card:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(5,12,15,.78))}
-.photo-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.2,.7,.2,1);filter:saturate(.82)}
-.photo-card:hover img{transform:scale(1.06)}
-.photo-card figcaption{position:absolute;z-index:1;bottom:10px;left:9px;right:9px;color:#f5ead7;font:italic 12px Georgia,serif;text-align:left;line-height:1.3}
-.footer-note{text-align:center;color:#81799f;font-size:11px;letter-spacing:.08em;margin-top:40px}
-.card{border:1px solid var(--line);background:linear-gradient(145deg,rgba(38,52,58,.88),rgba(16,24,29,.84));backdrop-filter:blur(18px);border-radius:26px;padding:clamp(20px,5vw,34px);box-shadow:0 22px 80px rgba(0,0,0,.24)}
-.progress-head{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:12px}
-.progress{height:3px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:28px}
-.progress span{height:100%;display:block;width:20%;background:linear-gradient(90deg,#a69aff,#f1d8ff);transition:width .35s}
-.qtitle{font-family:var(--serif);font-weight:400;font-size:clamp(27px,6vw,42px);line-height:1.15;margin-bottom:24px}
-.question-quote{font-family:var(--serif);font-style:italic;color:#d5c6ad;font-size:15px;line-height:1.55;margin:-10px 0 22px;opacity:.94}
-.answers{display:grid;gap:10px}
-.answer{width:100%;text-align:left;border:1px solid var(--line);border-radius:15px;padding:15px 16px;color:var(--text);background:rgba(255,255,255,.035);display:flex;align-items:center;gap:13px;transition:.2s;line-height:1.45}
-.answer .letter{width:27px;height:27px;flex:none;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);font-size:11px}
-.answer.selected{border-color:#c9b2ff;background:rgba(172,144,255,.14);box-shadow:0 0 0 1px rgba(201,178,255,.12)}
-.navrow{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
-.navrow button{min-width:112px}.hint{font-size:12px;color:var(--muted);align-self:center}
-.result-layout{display:grid;grid-template-columns:1fr .82fr;gap:24px;align-items:center}
-.result-copy h2{font-family:var(--serif);font-size:clamp(34px,6vw,54px);line-height:1.03;font-weight:400;margin:12px 0 15px}
-.result-copy .quote{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.55;color:#e3d5ff}
-.result-copy p{color:var(--muted);line-height:1.8;font-size:14px}
-.result-art{aspect-ratio:4/5;border:1px solid rgba(220,201,255,.26);border-radius:22px;overflow:hidden;position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,rgba(221,174,116,.27),transparent 34%),linear-gradient(155deg,#455d63,#17252b 75%);padding:22px;text-align:center}
-.result-art:before,.result-art:after{content:"";position:absolute;border:1px solid rgba(220,201,255,.28);border-radius:50%;width:76%;aspect-ratio:1;transform:scaleY(.42) rotate(30deg)}
-.result-art:after{transform:scaleY(.48) rotate(-35deg);width:95%}
-.art-moon{width:43%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 28% 25%,#fff3d8,#e9c79b 17%,#829b9b 48%,#263940 75%);box-shadow:0 0 40px rgba(190,161,255,.32);z-index:1}
-.art-caption{position:absolute;z-index:2;bottom:22px;left:14px;right:14px}
-.art-caption small{display:block;color:#cbbcff;font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:9px}
-.art-caption strong{display:block;font:normal 22px var(--serif);line-height:1.05}
-.art-caption em{display:block;font:italic 11px var(--serif);margin-top:9px;color:#c7bedf}
-.result-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.result-actions button{flex:1;min-width:140px}
-.disclaimer{font-size:11px;color:#8f87ac;line-height:1.6;margin-top:16px}
-.share-settings{margin-top:20px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025)}
-.share-settings h3{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
-.ratio-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.ratio-option{border:1px solid var(--line);border-radius:13px;padding:10px 8px;background:rgba(255,255,255,.025);color:var(--text);text-align:center}
-.ratio-option[aria-pressed="true"]{border-color:#e6c9a2;background:rgba(230,201,162,.1);box-shadow:0 0 0 1px rgba(230,201,162,.15)}
-.ratio-preview{margin:12px auto 0;width:100%;min-height:116px;display:flex;align-items:center;justify-content:center;gap:18px;border-radius:12px;background:linear-gradient(145deg,#263d43,#111c22);padding:12px}
-.preview-shape{width:44px;border:1px solid rgba(235,216,183,.65);border-radius:5px;position:relative;background:radial-gradient(circle at 50% 40%,rgba(236,202,153,.5),rgba(35,58,65,.2) 65%)}
-.preview-shape.story{height:78px}.preview-shape.square{height:44px}.preview-shape.landscape{height:31px;width:56px}
-.ratio-help{font-size:11px;color:var(--muted);line-height:1.5;margin:10px 0 0}
-@media(max-width:360px){.photo-strip{gap:6px}.photo-card figcaption{font-size:10px;left:7px;right:7px;bottom:7px}}\n@media(max-width:420px){.ratio-options{gap:6px}.ratio-option{font-size:12px;padding:9px 5px}}
+.hero{text-align:center;padding:15px 0 20px}
+.eyebrow{color:var(--accent);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:20px}
+h1{font:normal clamp(42px,8vw,76px)/1 Georgia,serif;letter-spacing:-2px;margin:20px 0}
+h1 span{display:block;font-style:italic;color:#e6c9a2;margin-top:8px}
+.lead{max-width:500px;margin:0 auto 25px;color:var(--muted);font-size:14px;line-height:1.8}
+.orbit{width:190px;height:190px;margin:25px auto;display:grid;place-items:center;position:relative}
+.orbit:before,.orbit:after{content:"";position:absolute;inset:15px;border:1px solid #e6c9a255;border-radius:50%;transform:rotate(30deg) scaleY(.55)}
+.orbit:after{transform:rotate(-30deg) scaleY(.55)}
+.moon{width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff1d5,#dfc49e 23%,#849b9c 55%,#2a4046 100%);box-shadow:0 0 45px #e6c9a222}
+.photo-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;max-width:650px;margin:28px auto}
+.photo-card{position:relative;aspect-ratio:3/4;margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.photo-card:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#071014d9)}
+.photo-card img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-card figcaption{position:absolute;z-index:1;bottom:9px;left:8px;right:8px;text-align:left;font:italic 11px Georgia,serif}
+.primary,.secondary{border:1px solid transparent;border-radius:30px;padding:13px 20px;min-height:46px;transition:.2s}
+.primary{background:linear-gradient(115deg,#f1dfc4,#b5d5d8);color:#142329;font-weight:700}
+.secondary{background:#ffffff08;border-color:var(--line);color:var(--text)}
+button:hover{filter:brightness(1.08)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.identity-panel,.card{background:linear-gradient(145deg,#26383edb,#111b20e8);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,4vw,30px)}
+.identity-panel{max-width:470px;margin:22px auto;text-align:left}
+label{display:block;font-size:12px;color:#e8dcc8;margin:0 0 7px}
+label span{color:var(--muted)}
+input:not([type=file]),textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#07101475;color:var(--text);margin-bottom:15px}
+textarea{resize:vertical;min-height:75px}
+.upload{display:block;padding:12px;border:1px dashed var(--line);border-radius:10px;text-align:center;cursor:pointer;color:var(--muted)}
+.hint{font-size:11px;color:#9ba6a3;line-height:1.6}
+.preview{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12px}
+.preview img{width:42px;height:42px;border-radius:50%;object-fit:cover}
 .hidden{display:none!important}
-@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes twinkle{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
-@media(max-width:600px){.photo-strip{grid-template-columns:repeat(2,minmax(0,1fr));max-width:400px;gap:8px}.photo-card figcaption{font-size:11px}.topbar{margin-bottom:25px}.result-layout{grid-template-columns:1fr}.result-art{max-width:260px;width:100%;margin:0 auto;grid-row:1}.result-copy{grid-row:2}.hero{padding-top:6px}.footer-note{margin-top:26px}.navrow button{min-width:0;flex:1}.hint{font-size:11px;text-align:right}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.card{backdrop-filter:blur(14px)}
+.progress-head{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:12px}
+.progress{height:3px;background:#ffffff15;margin-bottom:27px;border-radius:20px;overflow:hidden}
+.progress span{display:block;height:100%;width:20%;background:var(--accent);transition:width .25s}
+.qtitle{font:normal clamp(28px,6vw,43px)/1.15 Georgia,serif;margin:0 0 16px}
+.question-quote{font:italic 16px/1.6 Georgia,serif;color:var(--accent);margin:0 0 24px}
+.answers{display:grid;gap:10px}
+.answer{display:flex;gap:12px;align-items:center;width:100%;text-align:left;color:var(--text);background:#ffffff06;border:1px solid var(--line);border-radius:13px;padding:14px}
+.answer .letter{display:grid;place-items:center;width:28px;height:28px;flex-shrink:0;border:1px solid var(--line);border-radius:50%;color:var(--accent);font-size:11px}
+.answer.selected{border-color:var(--accent);background:#e6c9a211}
+.navrow{display:flex;justify-content:space-between;margin-top:22px;gap:12px}
+.navrow button{min-width:100px}
+.result-layout{display:grid;grid-template-columns:1fr .8fr;gap:24px;align-items:center}
+.result-copy h2{font:normal clamp(34px,6vw,54px)/1.04 Georgia,serif;margin:17px 0}
+.result-copy p{color:var(--muted);font-size:14px;line-height:1.8}
+.quote{font:italic 19px/1.55 Georgia,serif!important;color:#e6d5f3!important}
+.result-art{aspect-ratio:4/5;border:1px solid #e6c9a255;border-radius:22px;position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#dfc49e55,transparent 36%),linear-gradient(155deg,#455d63,#17252b);padding:15px;text-align:center}
+.result-art:before,.result-art:after{content:"";position:absolute;width:90%;aspect-ratio:1;border:1px solid #e6c9a244;border-radius:50%;transform:scaleY(.4) rotate(30deg)}
+.result-art:after{transform:scaleY(.4) rotate(-30deg)}
+.art-moon{width:42%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff1d5,#dfc49e 25%,#849b9c 58%,#2a4046);box-shadow:0 0 40px #e6c9a233;z-index:1}
+.art-caption{position:absolute;z-index:2;bottom:20px;left:8px;right:8px}
+.art-caption small{display:block;color:#e6c9a2;letter-spacing:2px;font-size:9px;margin-bottom:9px}
+.art-caption strong{display:block;font:normal 22px Georgia,serif}
+.art-caption em{display:block;font:italic 11px Georgia,serif;margin-top:8px}
+.share-settings{margin-top:22px;border:1px solid var(--line);border-radius:15px;padding:15px}
+.share-settings h3{font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.ratios{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ratio{border:1px solid var(--line);border-radius:10px;background:#ffffff05;color:var(--text);padding:10px 5px;font-size:12px}
+.ratio[aria-pressed=true]{border-color:var(--accent);background:#e6c9a215}
+.ratio-preview{display:flex;align-items:center;justify-content:center;gap:14px;background:#10191d;border-radius:10px;padding:12px;margin-top:12px}
+.shape{width:36px;border:1px solid var(--accent);border-radius:3px;background:#e6c9a215}
+.shape.story{height:60px}.shape.square{height:36px}.shape.landscape{height:21px;width:38px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.actions button{flex:1;min-width:145px}
+.disclaimer{font-size:11px;color:#9b93ae;line-height:1.6;margin-top:14px}
+.footer-note{text-align:center;color:#81799f;font-size:10px;letter-spacing:2px;margin-top:28px}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+ .photo-strip{grid-template-columns:repeat(2,minmax(0,1fr));max-width:390px}
+ .result-layout{grid-template-columns:1fr}
+ .result-art{max-width:260px;width:100%;margin:auto;grid-row:1}
+ .result-copy{grid-row:2}
+ .topbar{margin-bottom:20px}
+ .navrow button{flex:1}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
+
 <body>
 <div class="app">
-<header class="topbar">
-  <div class="brand"><div class="brandmark" aria-hidden="true">✧</div><span id="brandName">Canvasfreek</span><span class="instagram-mark" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.6" cy="6.7" r="1.2" fill="currentColor"/></svg></span></div>
-  <div class="pill">An interactive dream</div>
+<header>
+  <div class="brand">
+    <span class="brandmark">✧</span>
+    <span id="brandName">Canvasfreek</span>
+    <svg class="ig" viewBox="0 0 24 24" aria-label="Instagram">
+      <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="17.5" cy="6.7" r="1.1" fill="currentColor"/>
+    </svg>
+  </div>
+  <span class="pill">AN INTERACTIVE DREAM</span>
 </header>
 
 <main>
-<section class="view active" id="intro" aria-labelledby="mainTitle">
+<section class="view active" id="intro">
   <div class="hero">
     <div class="eyebrow">A little journey inward</div>
-    <div class="orbit" aria-hidden="true"><div class="moon"></div><span class="spark s1">✧</span><span class="spark s2">✦</span><span class="spark s3">·</span></div>
-    <h1 id="mainTitle">The Dream <span>Inside You</span></h1>
-    <p class="lead" id="introCopy">Five little questions. One unexpected universe. Discover the dreamer you might be, and take a piece of that universe with you.</p>
-    <div class="photo-strip" aria-label="Photography from the Canvasfreek universe">
-      <figure class="photo-card"><img src="209030.jpg" alt="Sunlight spilling through towering clouds" loading="lazy"><figcaption>Somewhere above the noise</figcaption></figure>
-      <figure class="photo-card"><img src="211776.jpg" alt="A quiet golden sunset over a silhouetted landscape" loading="lazy"><figcaption>Chasing the last light</figcaption></figure>
-      <figure class="photo-card"><img src="200713.jpg" alt="A solitary figure walking along a wide, quiet beach" loading="lazy"><figcaption>Room to become</figcaption></figure>
-      <figure class="photo-card"><img src="205019.jpg" alt="A small vivid flame against the night" loading="lazy"><figcaption>Keep a little fire</figcaption></figure>
+    <div class="orbit"><div class="moon"></div></div>
+    <h1>The Dream <span>Inside You</span></h1>
+    <p class="lead">Five little questions. One unexpected universe. Discover the dreamer you might be, and take a piece of that universe with you.</p>
+
+    <div class="photo-strip">
+      <figure class="photo-card"><img src="209030.jpg" alt="Clouds and sunlight"><figcaption>Somewhere above the noise</figcaption></figure>
+      <figure class="photo-card"><img src="211776.jpg" alt="Golden sunset"><figcaption>Chasing the last light</figcaption></figure>
+      <figure class="photo-card"><img src="200713.jpg" alt="A person at the beach"><figcaption>Room to become</figcaption></figure>
+      <figure class="photo-card"><img src="205019.jpg" alt="Fire glowing in darkness"><figcaption>Keep a little fire</figcaption></figure>
     </div>
-    <button class="primary" id="startBtn">Enter the dream <span aria-hidden="true">↗</span></button>
-    <p class="footer-note">MADE FOR CURIOUS SOULS · BY <span id="footerBrand">CANVASFREEK</span></p>
+
+    <div class="identity-panel">
+      <label for="visitorName">What should we call you? <span>(required)</span></label>
+      <input id="visitorName" maxlength="32" placeholder="Your name" autocomplete="given-name" required>
+
+      <label for="visitorHandle">Your Instagram username <span>(optional)</span></label>
+      <input id="visitorHandle" maxlength="30" placeholder="@yourusername">
+
+      <label>Profile picture <span>(optional)</span></label>
+      <label class="upload" for="profileUpload">＋ Add a photo from your device</label>
+      <input id="profileUpload" type="file" accept="image/*" hidden>
+      <p class="hint">Instagram profile pictures cannot reliably be fetched from a username alone. You can upload yours instead. Your information stays in this browser.</p>
+
+      <div id="photoPreview" class="preview hidden">
+        <img id="profilePreview" alt="Your selected profile photo">
+        <span>Photo added to your card</span>
+        <button class="secondary" id="removePhoto" type="button">Remove</button>
+      </div>
+    </div>
+
+    <button class="primary" id="startBtn">Enter the dream ↗</button>
+    <p class="footer-note">MADE FOR CURIOUS SOULS · CANVASFREEK</p>
   </div>
 </section>
 
@@ -131,7 +176,10 @@ h1 span{display:block;color:#e9cda7;font-style:italic}
     <h2 class="qtitle" id="questionText"></h2>
     <p class="question-quote" id="questionQuote"></p>
     <div class="answers" id="answerList"></div>
-    <div class="navrow"><button class="secondary" id="backBtn">← Back</button><span class="hint" id="autoHint">Choose an answer to continue</span></div>
+    <div class="navrow">
+      <button class="secondary" id="backBtn">← Back</button>
+      <span class="hint" id="autoHint">Choose an answer to continue</span>
+    </div>
   </div>
   <p class="footer-note">YOUR ANSWERS STAY IN THIS BROWSER</p>
 </section>
@@ -141,63 +189,73 @@ h1 span{display:block;color:#e9cda7;font-style:italic}
     <div class="eyebrow">Your inner universe revealed</div>
     <div class="result-layout">
       <div class="result-copy">
-        <div class="pill" id="resultTag">YOUR DREAM ARCHETYPE</div>
-        <h2 id="resultTitle">The Quiet Dreamer</h2>
+        <span class="pill" id="resultTag">YOUR DREAM ARCHETYPE</span>
+        <h2 id="resultTitle"></h2>
         <p class="quote" id="resultQuote"></p>
         <p id="resultDescription"></p>
       </div>
-      <div class="result-art" id="resultArt" aria-label="Decorative result artwork">
+      <div class="result-art">
         <div class="art-moon"></div>
-        <div class="art-caption"><small id="artBrand">CANVASFREEK</small><strong id="artTitle">The Quiet Dreamer</strong><em>THE DREAM INSIDE YOU</em></div>
+        <div class="art-caption">
+          <small id="artBrand">CANVASFREEK</small>
+          <strong id="artTitle"></strong>
+          <em>THE DREAM INSIDE YOU</em>
+        </div>
       </div>
     </div>
+
     <p class="disclaimer">A creative, fictional result made for fun — not a psychological assessment.</p>
+
+    <div class="identity-panel">
+      <label for="personalNote">Add a personal note <span>(optional)</span></label>
+      <textarea id="personalNote" maxlength="180" placeholder="A thought, a little reminder, or a line of your own…"></textarea>
+      <p class="hint">Your note will be included on your downloaded result card.</p>
+    </div>
+
     <div class="share-settings">
       <h3>Choose your share format</h3>
-      <div class="ratio-options" role="group" aria-label="Image aspect ratio">
-        <button type="button" class="ratio-option" data-ratio="story" aria-pressed="true">9:16<br><small>Story · Default</small></button>
-        <button type="button" class="ratio-option" data-ratio="square" aria-pressed="false">1:1<br><small>Square post</small></button>
-        <button type="button" class="ratio-option" data-ratio="landscape" aria-pressed="false">16:9<br><small>Landscape</small></button>
+      <div class="ratios">
+        <button class="ratio" data-ratio="story" aria-pressed="true">9:16<br>Story</button>
+        <button class="ratio" data-ratio="square" aria-pressed="false">1:1<br>Square</button>
+        <button class="ratio" data-ratio="landscape" aria-pressed="false">16:9<br>Landscape</button>
       </div>
-      <div class="ratio-preview" id="ratioPreview" aria-live="polite">
-        <div class="preview-shape story" id="previewShape"></div>
-        <div><strong id="previewTitle">Story preview</strong><p class="ratio-help" id="previewDescription">Tall 1080 × 1920 image, ideal for Instagram Stories and WhatsApp Status.</p></div>
+      <div class="ratio-preview">
+        <div class="shape story" id="ratioShape"></div>
+        <div><strong id="ratioName">Story preview</strong><p class="hint" id="ratioHelp">1080 × 1920 — ideal for Stories and WhatsApp Status.</p></div>
       </div>
-      <p class="ratio-help">Choose a format before downloading or sharing. Your selected format is used for both actions.</p>
     </div>
-    <div class="result-actions">
+
+    <div class="actions">
       <button class="primary" id="downloadBtn">Download result card ↓</button>
       <button class="secondary" id="shareBtn">Share image ↗</button>
       <button class="secondary" id="restartBtn">Dream again ↻</button>
     </div>
-    <div class="result-actions"><button class="secondary" id="instagramBtn">Visit Canvasfreek gallery ↗</button></div>
+    <div class="actions">
+      <button class="secondary" id="instagramBtn">Visit Canvasfreek gallery ↗</button>
+    </div>
     <p class="disclaimer" id="shareStatus" role="status"></p>
   </div>
-  <p class="footer-note">KEEP A LITTLE MAGIC WITH YOU ✧</p>
 </section>
 </main>
 </div>
 
 <script>
-/* ================= CREATOR CONFIGURATION =================
-   To reuse this experience, edit the values in CREATOR below.
-   No database or server is required.
-=========================================================== */
+/* ================= CREATOR SETTINGS =================
+   Edit these values when reusing this template for another creator.
+===================================================== */
 const CREATOR = {
   name: "Canvasfreek",
-  instagramUrl: "https://www.instagram.com/canvasfreek/",
-  intro: "Five little questions. One unexpected universe. Discover the dreamer you might be, and take a piece of that universe with you.",
-  title: "The Dream Inside You",
-  footer: "Made for curious souls"
+  instagramUrl: "https://www.instagram.com/canvasfreek/"
 };
 
 const QUESTION_QUOTES = [
- "“Some answers arrive only when you give the quiet a little room.”",
- "“The sky inside you is allowed to change its colors.”",
- "“A small kind of magic can still change an ordinary day.”",
- "“Not every truth needs an audience to be real.”",
- "“Take only what makes your world feel a little more alive.”"
+  "“Some answers arrive when you give the quiet a little room.”",
+  "“The sky inside you is allowed to change its colors.”",
+  "“A small kind of magic can still change an ordinary day.”",
+  "“Not every truth needs an audience to be real.”",
+  "“Take only what makes your world feel a little more alive.”"
 ];
+
 const QUESTIONS = [
  {text:"When the world finally gets quiet, where does your mind wander?",answers:[
   {label:"Somewhere I have never been",type:"faraway"},
@@ -225,158 +283,331 @@ const QUESTIONS = [
   {label:"A little warmth I can return to",type:"hearth"},
   {label:"A first sentence for a new story",type:"storyteller"}]}
 ];
+
 const RESULTS = {
- glitch:{title:"The Beautiful Glitch",tag:"THE UNEXPECTED ONE",quote:"Somewhere, a universe is still deciding whether you were an accident or the plot.",description:"You find possibility where other people see a pattern. Keep your strange ideas close; they may be the beginning of something beautiful.",symbol:"✧"},
- quiet:{title:"The Quiet Dreamer",tag:"THE GENTLE OBSERVER",quote:"Not every universe makes noise. Some change everything in silence.",description:"You notice the details that others pass by. There is a kind of wonder in the way you give small moments room to matter.",symbol:"☾"},
- chapter:{title:"The Unwritten Chapter",tag:"THE BECOMING",quote:"You are allowed to become someone your old story could never predict.",description:"You are still unfolding, and that is not a flaw. Leave a little space for the version of you that has not arrived yet.",symbol:"✦"},
- faraway:{title:"The Faraway Soul",tag:"THE HORIZON SEEKER",quote:"Perhaps you aren't lost. Perhaps your horizon is simply moving.",description:"Curiosity keeps opening doors inside you. You don't need every answer today to keep moving toward what calls you.",symbol:"⟡"},
- wanderer:{title:"The Horizon Collector",tag:"THE RESTLESS EXPLORER",quote:"Some people collect things. You collect the places your mind has not reached yet.",description:"The unknown doesn't only frighten you; it invites you. Let curiosity lead, even when the map ends.",symbol:"↗"},
- colorist:{title:"The Color in the Static",tag:"THE CREATIVE SPARK",quote:"You can find a little color in places everyone else calls ordinary.",description:"Your imagination rearranges the everyday into something surprising. Give those unusual ideas a place to live.",symbol:"✺"},
- moonkeeper:{title:"The Keeper of Moonlight",tag:"THE QUIET OBSERVER",quote:"You carry whole constellations of thoughts behind a very quiet sky.",description:"You feel the atmosphere of a moment, not just what happened in it. Your sensitivity can be a way of seeing clearly.",symbol:"☾"},
- rebloom:{title:"The Almost Sunrise",tag:"THE NEW BEGINNING",quote:"Even the longest night is still moving toward a different color.",description:"Change may arrive quietly before it becomes visible. You are allowed to begin again without announcing it.",symbol:"☼"},
- hearth:{title:"The Little Universe",tag:"THE WARMTH KEEPER",quote:"Maybe magic is simply finding a place where your shoulders can finally fall.",description:"You know the value of warmth, familiar rituals, and people who make the world gentler. Protect what helps you feel at home.",symbol:"❋"},
- storyteller:{title:"The Story Between Stars",tag:"THE STORY MAKER",quote:"There is a story in you that only becomes visible when you start writing it.",description:"You turn memories and maybes into meaning. You don't need the perfect first line; you only need to begin.",symbol:"✎"}
+ glitch:{title:"The Beautiful Glitch",tag:"THE UNEXPECTED ONE",
+  quote:"Somewhere, a universe is still deciding whether you were an accident or the plot.",
+  description:"You find possibility where other people see a pattern. Keep your strange ideas close; they may be the beginning of something beautiful."},
+ quiet:{title:"The Quiet Dreamer",tag:"THE GENTLE OBSERVER",
+  quote:"Not every universe makes noise. Some change everything in silence.",
+  description:"You notice the details that others pass by. There is wonder in the way you give small moments room to matter."},
+ chapter:{title:"The Unwritten Chapter",tag:"THE BECOMING",
+  quote:"You are allowed to become someone your old story could never predict.",
+  description:"You are still unfolding, and that is not a flaw. Leave space for the version of you that has not arrived yet."},
+ faraway:{title:"The Faraway Soul",tag:"THE HORIZON SEEKER",
+  quote:"Perhaps you aren't lost. Perhaps your horizon is simply moving.",
+  description:"Curiosity keeps opening doors inside you. You don't need every answer today to move toward what calls you."},
+ wanderer:{title:"The Horizon Collector",tag:"THE RESTLESS EXPLORER",
+  quote:"Some people collect things. You collect the places your mind has not reached yet.",
+  description:"The unknown doesn't only frighten you; it invites you. Let curiosity lead, even when the map ends."},
+ colorist:{title:"The Color in the Static",tag:"THE CREATIVE SPARK",
+  quote:"You can find a little color in places everyone else calls ordinary.",
+  description:"Your imagination rearranges the everyday into something surprising. Give those unusual ideas a place to live."},
+ moonkeeper:{title:"The Keeper of Moonlight",tag:"THE QUIET OBSERVER",
+  quote:"You carry whole constellations of thoughts behind a very quiet sky.",
+  description:"You feel the atmosphere of a moment, not just what happened in it. Your sensitivity can be a way of seeing clearly."},
+ rebloom:{title:"The Almost Sunrise",tag:"THE NEW BEGINNING",
+  quote:"Even the longest night is still moving toward a different color.",
+  description:"Change may arrive quietly before it becomes visible. You are allowed to begin again without announcing it."},
+ hearth:{title:"The Little Universe",tag:"THE WARMTH KEEPER",
+  quote:"Maybe magic is simply finding a place where your shoulders can finally fall.",
+  description:"You know the value of warmth, familiar rituals, and people who make the world gentler. Protect what helps you feel at home."},
+ storyteller:{title:"The Story Between Stars",tag:"THE STORY MAKER",
+  quote:"There is a story in you that only becomes visible when you start writing it.",
+  description:"You turn memories and maybes into meaning. You don't need the perfect first line; you only need to begin."}
 };
-const state={index:0,answers:[]};
+
+const state={index:0,answers:[],name:"",handle:"",photo:""};
 const $=id=>document.getElementById(id);
+let selectedRatio="story";
+
+const RATIO={
+ story:{width:1080,height:1920,label:"Story preview",help:"1080 × 1920 — ideal for Stories and WhatsApp Status."},
+ square:{width:1080,height:1080,label:"Square preview",help:"1080 × 1080 — ideal for a square feed post."},
+ landscape:{width:1920,height:1080,label:"Landscape preview",help:"1920 × 1080 — ideal for landscape sharing."}
+};
+
 $("brandName").textContent=CREATOR.name;
-$("footerBrand").textContent=CREATOR.name.toUpperCase();
 $("artBrand").textContent=CREATOR.name.toUpperCase();
-$("introCopy").textContent=CREATOR.intro;
 $("instagramBtn").textContent="Visit "+CREATOR.name+" gallery ↗";
-function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));window.scrollTo({top:0,behavior:"smooth"});}
+
+$("profileUpload").addEventListener("change",e=>{
+ const file=e.target.files?.[0];
+ if(!file)return;
+ if(!file.type.startsWith("image/"))return;
+ if(file.size>8*1024*1024){alert("Please choose an image smaller than 8 MB.");e.target.value="";return;}
+ const reader=new FileReader();
+ reader.onload=()=>{state.photo=reader.result;$("profilePreview").src=state.photo;$("photoPreview").classList.remove("hidden");};
+ reader.readAsDataURL(file);
+});
+$("removePhoto").addEventListener("click",()=>{
+ state.photo="";$("profileUpload").value="";$("profilePreview").removeAttribute("src");$("photoPreview").classList.add("hidden");
+});
+
+function showView(id){
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
 function renderQuestion(){
  const q=QUESTIONS[state.index];
- $("stepLabel").textContent=`QUESTION ${String(state.index+1).padStart(2,"0")} / ${String(QUESTIONS.length).padStart(2,"0")}`;
+ $("stepLabel").textContent=`QUESTION ${String(state.index+1).padStart(2,"0")} / 05`;
  $("percentLabel").textContent=`${Math.round((state.index+1)/QUESTIONS.length*100)}%`;
  $("progressBar").style.width=`${(state.index+1)/QUESTIONS.length*100}%`;
  $("questionText").textContent=q.text;
  $("questionQuote").textContent=QUESTION_QUOTES[state.index];
  $("answerList").innerHTML="";
  q.answers.forEach((a,i)=>{
-  const b=document.createElement("button");b.className="answer"+(state.answers[state.index]===i?" selected":"");
-  b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span></span>`;
-  b.lastElementChild.textContent=a.label;
+  const b=document.createElement("button");
+  b.className="answer"+(state.answers[state.index]===i?" selected":"");
+  const letter=document.createElement("span");letter.className="letter";letter.textContent=String.fromCharCode(65+i);
+  const label=document.createElement("span");label.textContent=a.label;
+  b.append(letter,label);
   b.setAttribute("aria-pressed",state.answers[state.index]===i?"true":"false");
-  b.addEventListener("click",()=>{state.answers[state.index]=i;renderQuestion();setTimeout(()=>{if(state.index<QUESTIONS.length-1){state.index++;renderQuestion();}else{renderResult();}},320);});
+  b.addEventListener("click",()=>{
+   state.answers[state.index]=i;
+   renderQuestion();
+   setTimeout(()=>{
+    if(state.index<QUESTIONS.length-1){state.index++;renderQuestion();}
+    else renderResult();
+   },260);
+  });
   $("answerList").appendChild(b);
  });
  $("backBtn").style.visibility=state.index===0?"hidden":"visible";
- $("autoHint").textContent=state.answers[state.index]===undefined?"Choose an answer to continue":"Answer selected";
+ $("autoHint").textContent="Choose an answer to continue";
 }
+
+$("startBtn").addEventListener("click",()=>{
+ const name=$("visitorName").value.trim();
+ if(!name){$("visitorName").focus();$("visitorName").setCustomValidity("Please enter your name.");$("visitorName").reportValidity();return;}
+ $("visitorName").setCustomValidity("");
+ state.name=name.slice(0,32);
+ state.handle=$("visitorHandle").value.trim().replace(/^@+/,"").slice(0,30);
+ state.index=0;state.answers=[];
+ renderQuestion();showView("quiz");
+});
+
+$("backBtn").addEventListener("click",()=>{
+ if(state.index>0){state.index--;renderQuestion();}
+});
+
 function calculateResult(){
- const scores={};Object.keys(RESULTS).forEach(key=>scores[key]=0);
+ const scores={};
+ Object.keys(RESULTS).forEach(k=>scores[k]=0);
  state.answers.forEach((answerIndex,questionIndex)=>{
-   const type=QUESTIONS[questionIndex].answers[answerIndex].type;
-   scores[type]+=2;
-   // Related choices can gently influence a second archetype, creating richer outcomes.
-   const echoes={faraway:"wanderer",wanderer:"faraway",glitch:"colorist",colorist:"glitch",quiet:"moonkeeper",moonkeeper:"quiet",chapter:"rebloom",rebloom:"chapter",hearth:"quiet",storyteller:"chapter"};
-   if(echoes[type]) scores[echoes[type]]+=0.35;
+  const type=QUESTIONS[questionIndex].answers[answerIndex].type;
+  scores[type]+=2;
  });
  const max=Math.max(...Object.values(scores));
- const tied=Object.keys(scores).filter(key=>Math.abs(scores[key]-max)<0.001);
- // Stable tie-break for the same answers, but different answer patterns can reveal all ten outcomes.
- const signature=state.answers.map((a,i)=>a+"-"+i).join("|");
- let hash=0;for(let i=0;i<signature.length;i++)hash=(hash*31+signature.charCodeAt(i))>>>0;
+ const tied=Object.keys(scores).filter(k=>scores[k]===max);
+ const signature=state.answers.join("")+"-"+state.name;
+ let hash=0;
+ for(let i=0;i<signature.length;i++)hash=(hash*31+signature.charCodeAt(i))>>>0;
  return tied[hash%tied.length];
 }
+
 function renderResult(){
  const key=calculateResult(),r=RESULTS[key];
- $("resultTag").textContent=r.tag;$("resultTitle").textContent=r.title;$("resultQuote").textContent="“"+r.quote+"”";
- $("resultDescription").textContent=r.description;$("artTitle").textContent=r.title;
- $("resultArt").setAttribute("aria-label",r.title+" result artwork");
- $("shareStatus").textContent="Your answers are processed in this page; nothing is sent to a database.";
+ $("resultTag").textContent=r.tag;
+ $("resultTitle").textContent=r.title;
+ $("resultQuote").textContent="“"+r.quote+"”";
+ $("resultDescription").textContent=r.description;
+ $("artTitle").textContent=r.title;
+ $("shareStatus").textContent="Your answers are processed locally in this browser.";
  showView("result");
 }
-$("startBtn").addEventListener("click",()=>{state.index=0;renderQuestion();showView("quiz");});
-$("backBtn").addEventListener("click",()=>{if(state.index>0){state.index--;renderQuestion();}});
 
-$("restartBtn").addEventListener("click",()=>{state.index=0;state.answers=[];renderQuestion();showView("intro");});
-$("instagramBtn").addEventListener("click",()=>window.open(CREATOR.instagramUrl,"_blank","noopener,noreferrer"));
-function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines=4){
+$("restartBtn").addEventListener("click",()=>{
+ state.index=0;state.answers=[];
+ $("personalNote").value="";
+ showView("intro");
+});
+$("instagramBtn").addEventListener("click",()=>{
+ window.open(CREATOR.instagramUrl,"_blank","noopener,noreferrer");
+});
+
+document.querySelectorAll(".ratio").forEach(btn=>btn.addEventListener("click",()=>{
+ selectedRatio=btn.dataset.ratio;
+ document.querySelectorAll(".ratio").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));
+ $("ratioShape").className="shape "+selectedRatio;
+ $("ratioName").textContent=RATIO[selectedRatio].label;
+ $("ratioHelp").textContent=RATIO[selectedRatio].help;
+}));
+
+function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines=4){
  const words=text.split(/\s+/);let line="",lines=[];
- for(const word of words){const test=line?line+" "+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word;}else line=test;}
+ for(const word of words){
+  const test=line?line+" "+word:word;
+  if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word;}
+  else line=test;
+ }
  if(line)lines.push(line);
  lines=lines.slice(0,maxLines);
  lines.forEach((ln,i)=>ctx.fillText(ln,x,y+i*lineHeight));
  return lines.length;
 }
-let selectedRatio="story";
-const RATIO_CONFIG={
- story:{width:1080,height:1920,label:"Story preview",description:"Tall 1080 × 1920 image, ideal for Instagram Stories and WhatsApp Status."},
- square:{width:1080,height:1080,label:"Square preview",description:"1080 × 1080 image for a square Instagram feed post."},
- landscape:{width:1920,height:1080,label:"Landscape preview",description:"1920 × 1080 image for landscape sharing and banners."}
-};
-document.querySelectorAll(".ratio-option").forEach(btn=>btn.addEventListener("click",()=>{
- selectedRatio=btn.dataset.ratio;
- document.querySelectorAll(".ratio-option").forEach(b=>b.setAttribute("aria-pressed",b===btn?"true":"false"));
- const c=RATIO_CONFIG[selectedRatio];$("previewTitle").textContent=c.label;$("previewDescription").textContent=c.description;
- $("previewShape").className="preview-shape "+selectedRatio;
-}));
-async function createResultBlob(){
- const title=$("resultTitle").textContent,quote=$("resultQuote").textContent,brand=CREATOR.name.toUpperCase();
- const config=RATIO_CONFIG[selectedRatio];
- const canvas=document.createElement("canvas");canvas.width=config.width;canvas.height=config.height;
- const ctx=canvas.getContext("2d");if(!ctx)throw new Error("Canvas unavailable");
- const W=canvas.width,H=canvas.height,scale=Math.min(W/1080,H/1920);
- const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,"#243940");bg.addColorStop(.48,"#17272e");bg.addColorStop(1,"#0d151b");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
- // Fit a composed story layout to the selected canvas ratio without stretching the artwork.
- const designH=1920,designW=1080,designScale=Math.min(W/designW,H/designH),offsetX=(W-designW*designScale)/2,offsetY=(H-designH*designScale)/2;
- ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(designScale,designScale);
- const glow=ctx.createRadialGradient(540,620,10,540,620,590);glow.addColorStop(0,"rgba(246,207,155,.68)");glow.addColorStop(.28,"rgba(172,183,169,.24)");glow.addColorStop(.66,"rgba(87,126,133,.10)");glow.addColorStop(1,"rgba(20,35,41,0)");ctx.fillStyle=glow;ctx.fillRect(0,100,1080,1200);
- const haze=ctx.createLinearGradient(0,900,0,1250);haze.addColorStop(0,"rgba(186,193,177,0)");haze.addColorStop(.55,"rgba(186,193,177,.08)");haze.addColorStop(1,"rgba(10,22,27,.05)");ctx.fillStyle=haze;ctx.fillRect(0,850,1080,450);
- // Use the creator's real photographs as a softly blended, cropped background layer.
- // These are same-origin assets when hosted with index.html, so no external API is needed.
- const photoName = ({ "The Beautiful Glitch":"209030.jpg", "The Quiet Dreamer":"211776.jpg",
-   "The Unwritten Chapter":"200713.jpg", "The Faraway Soul":"209030.jpg",
-   "The Horizon Collector":"200713.jpg", "The Color in the Static":"205019.jpg",
-   "The Keeper of Moonlight":"211776.jpg", "The Almost Sunrise":"211776.jpg",
-   "The Little Universe":"205019.jpg", "The Story Between Stars":"209030.jpg" })[title] || "209030.jpg";
- try {
-   const photo = new Image(); photo.src = photoName;
-   await new Promise((resolve,reject)=>{photo.onload=resolve;photo.onerror=reject;});
-   ctx.save();ctx.globalAlpha=.19;
-   const crop=Math.max(1080/photo.width,1250/photo.height),pw=photo.width*crop,ph=photo.height*crop;
-   ctx.drawImage(photo,(1080-pw)/2,(80-ph)/2,pw,ph);
-   ctx.restore();
-   const tint=ctx.createLinearGradient(0,0,0,1400);tint.addColorStop(0,"rgba(13,25,30,.32)");tint.addColorStop(.6,"rgba(13,25,30,.56)");tint.addColorStop(1,"rgba(13,25,30,.95)");
-   ctx.fillStyle=tint;ctx.fillRect(0,0,1080,1400);
- } catch(e) { /* Keep the elegant generated background if photo assets aren't available. */ }
- let seed=29;function rand(){seed=(seed*9301+49297)%233280;return seed/233280;}
- for(let i=0;i<95;i++){ctx.beginPath();ctx.fillStyle=`rgba(255,244,220,${.18+rand()*.5})`;ctx.arc(rand()*1080,rand()*1500,1+rand()*2,0,Math.PI*2);ctx.fill();}
- ctx.strokeStyle="rgba(235,216,183,.42)";ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(540,690,350,125,-.35,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.ellipse(540,690,385,145,.48,0,Math.PI*2);ctx.stroke();
- const orb=ctx.createRadialGradient(490,630,10,540,690,190);orb.addColorStop(0,"#fff2d5");orb.addColorStop(.25,"#dfc49e");orb.addColorStop(.62,"#849b9c");orb.addColorStop(1,"#2a4046");ctx.fillStyle=orb;ctx.beginPath();ctx.arc(540,690,155,0,Math.PI*2);ctx.fill();
- ctx.textAlign="center";ctx.fillStyle="#e9d7b8";ctx.font="600 28px Arial";ctx.fillText(brand,540,165);
- ctx.fillStyle="#d8c5a5";ctx.font="24px Arial";ctx.fillText("YOUR DREAM ARCHETYPE",540,1115);
- ctx.fillStyle="#fff5e7";ctx.font="64px Georgia";wrapCanvasText(ctx,title,540,1210,900,78,2);
- ctx.fillStyle="#e8dcc8";ctx.font="italic 35px Georgia";wrapCanvasText(ctx,quote,540,1335,820,54,4);
- ctx.fillStyle="#c0c5bd";ctx.font="22px Arial";ctx.fillText("THE DREAM INSIDE YOU",540,1770);
- ctx.fillStyle="#9eaaa7";ctx.font="18px Arial";ctx.fillText("A LITTLE JOURNEY INWARD · "+brand,540,1825);
+
+function roundedImage(ctx,img,x,y,w,h,r){
+ ctx.save();ctx.beginPath();
+ ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);
+ ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);
+ ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.clip();
+ const scale=Math.max(w/img.width,h/img.height);
+ const iw=img.width*scale,ih=img.height*scale;
+ ctx.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih);
  ctx.restore();
- return await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Image creation failed")),"image/png"));
 }
+
+async function createResultBlob(){
+ const cfg=RATIO[selectedRatio];
+ const canvas=document.createElement("canvas");
+ canvas.width=cfg.width;canvas.height=cfg.height;
+ const ctx=canvas.getContext("2d");
+ if(!ctx)throw new Error("Canvas unavailable");
+
+ const W=canvas.width,H=canvas.height;
+ const bg=ctx.createLinearGradient(0,0,W,H);
+ bg.addColorStop(0,"#243940");bg.addColorStop(.48,"#17272e");bg.addColorStop(1,"#0d151b");
+ ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+ /* Compose a 9:16 design, then scale it without distortion for other formats. */
+ const scale=Math.min(W/1080,H/1920);
+ const dx=(W-1080*scale)/2,dy=(H-1920*scale)/2;
+ ctx.save();ctx.translate(dx,dy);ctx.scale(scale,scale);
+
+ const glow=ctx.createRadialGradient(540,620,10,540,620,590);
+ glow.addColorStop(0,"rgba(246,207,155,.68)");
+ glow.addColorStop(.3,"rgba(172,183,169,.22)");
+ glow.addColorStop(1,"rgba(20,35,41,0)");
+ ctx.fillStyle=glow;ctx.fillRect(0,0,1080,1350);
+
+ /* Use the actual creator photographs as a subtle background layer. */
+ const photoMap={
+  "The Beautiful Glitch":"209030.jpg",
+  "The Quiet Dreamer":"211776.jpg",
+  "The Unwritten Chapter":"200713.jpg",
+  "The Faraway Soul":"209030.jpg",
+  "The Horizon Collector":"200713.jpg",
+  "The Color in the Static":"205019.jpg",
+  "The Keeper of Moonlight":"211776.jpg",
+  "The Almost Sunrise":"211776.jpg",
+  "The Little Universe":"205019.jpg",
+  "The Story Between Stars":"209030.jpg"
+ };
+ try{
+  const photo=new Image();
+  photo.src=photoMap[$("resultTitle").textContent]||"209030.jpg";
+  await new Promise((resolve,reject)=>{photo.onload=resolve;photo.onerror=reject;});
+  ctx.save();ctx.globalAlpha=.16;
+  const crop=Math.max(1080/photo.width,1300/photo.height);
+  const pw=photo.width*crop,ph=photo.height*crop;
+  ctx.drawImage(photo,(1080-pw)/2,(100-ph)/2,pw,ph);
+  ctx.restore();
+  const tint=ctx.createLinearGradient(0,0,0,1400);
+  tint.addColorStop(0,"rgba(13,25,30,.28)");
+  tint.addColorStop(.65,"rgba(13,25,30,.55)");
+  tint.addColorStop(1,"rgba(13,25,30,.94)");
+  ctx.fillStyle=tint;ctx.fillRect(0,0,1080,1400);
+ }catch(e){/* Gradient artwork remains available if photos fail to load. */}
+
+ let seed=29;
+ function rand(){seed=(seed*9301+49297)%233280;return seed/233280;}
+ for(let i=0;i<90;i++){
+  ctx.beginPath();ctx.fillStyle=`rgba(255,244,220,${.15+rand()*.4})`;
+  ctx.arc(rand()*1080,rand()*1500,1+rand()*1.5,0,Math.PI*2);ctx.fill();
+ }
+
+ ctx.strokeStyle="rgba(235,216,183,.38)";ctx.lineWidth=2;
+ ctx.beginPath();ctx.ellipse(540,690,350,125,-.35,0,Math.PI*2);ctx.stroke();
+ ctx.beginPath();ctx.ellipse(540,690,385,145,.48,0,Math.PI*2);ctx.stroke();
+
+ const orb=ctx.createRadialGradient(490,630,10,540,690,190);
+ orb.addColorStop(0,"#fff2d5");orb.addColorStop(.25,"#dfc49e");
+ orb.addColorStop(.62,"#849b9c");orb.addColorStop(1,"#2a4046");
+ ctx.fillStyle=orb;ctx.beginPath();ctx.arc(540,690,155,0,Math.PI*2);ctx.fill();
+
+ /* Visitor photo, if selected. */
+ if(state.photo){
+  try{
+   const avatar=new Image();avatar.src=state.photo;
+   await new Promise((resolve,reject)=>{avatar.onload=resolve;avatar.onerror=reject;});
+   roundedImage(ctx,avatar,490,855,100,100,50);
+   ctx.strokeStyle="#e6c9a2";ctx.lineWidth=3;
+   ctx.beginPath();ctx.arc(540,905,52,0,Math.PI*2);ctx.stroke();
+  }catch(e){}
+ }
+
+ ctx.textAlign="center";
+ ctx.fillStyle="#e9d7b8";ctx.font="600 28px Arial";
+ ctx.fillText(CREATOR.name.toUpperCase(),540,165);
+
+ ctx.fillStyle="#fff4df";ctx.font="600 31px Arial";
+ ctx.fillText(state.name,540,state.photo?1000:960);
+ if(state.handle){
+  ctx.fillStyle="#c4c9c0";ctx.font="22px Arial";
+  ctx.fillText("@"+state.handle,540,state.photo?1040:1000);
+ }
+
+ ctx.fillStyle="#d8c5a5";ctx.font="24px Arial";
+ ctx.fillText("YOUR DREAM ARCHETYPE",540,1115);
+ ctx.fillStyle="#fff5e7";ctx.font="64px Georgia";
+ wrapText(ctx,$("resultTitle").textContent,540,1210,900,78,2);
+
+ ctx.fillStyle="#e8dcc8";ctx.font="italic 35px Georgia";
+ wrapText(ctx,$("resultQuote").textContent,540,1335,820,54,4);
+
+ const note=$("personalNote").value.trim();
+ if(note){
+  ctx.fillStyle="#f0dfc5";ctx.font="italic 27px Georgia";
+  wrapText(ctx,note,540,1515,790,39,3);
+ }
+
+ ctx.fillStyle="#c0c5bd";ctx.font="22px Arial";
+ ctx.fillText("THE DREAM INSIDE YOU",540,1770);
+ ctx.fillStyle="#9eaaa7";ctx.font="18px Arial";
+ ctx.fillText("A LITTLE JOURNEY INWARD · "+CREATOR.name.toUpperCase(),540,1825);
+ ctx.restore();
+
+ return new Promise((resolve,reject)=>{
+  canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Could not create image")),"image/png");
+ });
+}
+
 async function downloadResult(){
  try{
-  const blob=await createResultBlob(),url=URL.createObjectURL(blob),a=document.createElement("a");
-  a.href=url;a.download="canvasfreek-dream-result.png";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2500);
-  $("shareStatus").textContent="Your 9:16 Story-sized card has been downloaded. You can upload it to Instagram or WhatsApp.";
- }catch(err){$("shareStatus").textContent="Image download failed in this browser. Please try an updated Chrome or Edge.";}
+  const blob=await createResultBlob();
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  const safeName=(state.name||"my").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"my";
+  a.href=url;a.download=safeName+"-dream-result.png";
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2500);
+  $("shareStatus").textContent="Your image is ready. Open Instagram or WhatsApp to share it.";
+ }catch(e){
+  $("shareStatus").textContent="Image creation failed. Please try an updated browser.";
+ }
 }
 $("downloadBtn").addEventListener("click",downloadResult);
+
 $("shareBtn").addEventListener("click",async()=>{
  try{
   const blob=await createResultBlob();
-  const file=new File([blob],"canvasfreek-dream-result.png",{type:"image/png"});
-  if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-   await navigator.share({files:[file],title:"My Dream Inside You result",text:"I discovered my dream archetype with "+CREATOR.name+" ✨"});
-   $("shareStatus").textContent="Share sheet opened. Choose an app that accepts images.";
+  const file=new File([blob],"dream-result.png",{type:"image/png"});
+  if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+   await navigator.share({
+    files:[file],
+    title:state.name+" — "+$("resultTitle").textContent,
+    text:"I discovered my dream archetype with "+CREATOR.name+" ✨"
+   });
+   $("shareStatus").textContent="Choose a compatible app from your device's share menu.";
   }else{
    await downloadResult();
-   $("shareStatus").textContent="This browser can't share image files directly. The card was downloaded; attach it in Instagram or WhatsApp.";
+   $("shareStatus").textContent="Direct image sharing is unavailable in this browser. Use the downloaded image in Instagram or WhatsApp.";
   }
- }catch(err){
-  if(err && err.name==="AbortError"){$("shareStatus").textContent="Sharing cancelled.";}
-  else $("shareStatus").textContent="Direct image sharing isn't supported here. Use Download result card, then attach it in your app.";
+ }catch(e){
+  if(e.name==="AbortError")$("shareStatus").textContent="Sharing cancelled.";
+  else $("shareStatus").textContent="Please download the image and attach it manually in your app.";
  }
 });
 </script>
