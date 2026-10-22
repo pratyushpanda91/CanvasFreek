@@ -233,6 +233,9 @@ textarea{resize:vertical;min-height:75px}
     <div class="actions">
       <button class="secondary" id="instagramBtn">Visit Canvasfreek gallery ↗</button>
     </div>
+    <div class="actions">
+      <button class="primary" id="buildLikeThisBtn">Build one like this for yourself ↗</button>
+    </div>
     <p class="disclaimer" id="shareStatus" role="status"></p>
   </div>
 </section>
@@ -425,6 +428,26 @@ $("restartBtn").addEventListener("click",()=>{
 });
 $("instagramBtn").addEventListener("click",()=>{
  window.open(CREATOR.instagramUrl,"_blank","noopener,noreferrer");
+});
+
+$("buildLikeThisBtn").addEventListener("click",()=>{
+ const to = "themorningpostofficial@gmail.com";
+ const subject = "Build a creator experience like The Dream Inside You";
+ const body = [
+  "Hi TheMorningPostOfficial,",
+  "",
+  "I'd love to build a personalized interactive experience like The Dream Inside You for my creator brand.",
+  "",
+  "Creator name / brand:",
+  "Instagram handle:",
+  "What I'd like to create:",
+  "",
+  "Looking forward to hearing from you!"
+ ].join("\n");
+ const params = new URLSearchParams({view:"cm",fs:"1",to, su:subject, body});
+ const gmailUrl = "https://mail.google.com/mail/?" + params.toString();
+ const opened = window.open(gmailUrl, "_blank", "noopener,noreferrer");
+ if (!opened) window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 
 document.querySelectorAll(".ratio").forEach(btn=>btn.addEventListener("click",()=>{
